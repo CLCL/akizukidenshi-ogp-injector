@@ -1,29 +1,29 @@
 akizukidenshi-ogp-injector
 ==========================
 
-$B=)7nEE;RDL>&$N>&IJ%Z!<%8$K(BOGP$B%a%?%G!<%?$rIUM?$9$k(BPHP
+秋月電子通商の商品ページにOGPメタデータを付与するPHP
 
-## $B@bL@(B
+## 説明
 
-$B>&IJ%Z!<%8$,(B ``http://akizukidenshi.com/catalog/g/gM-08233/``
+商品ページが ``http://akizukidenshi.com/catalog/g/gM-08233/``
 
-$B%$%s%8%'%/%?@_CV(BURL$B$,(B ``http://akizukidenshi-ogp-injector.dtpwiki.jp/``
+インジェクタ設置URLが ``http://akizukidenshi-ogp-injector.dtpwiki.jp/``
 
-$B$@$H$9$k$H!"(B
+だとすると、
 
 [**http://akizukidenshi-ogp-injector.dtpwiki.jp/**http://akizukidenshi.com/catalog/g/gM-08233/](http://akizukidenshi-ogp-injector.dtpwiki.jp/http://akizukidenshi.com/catalog/g/gM-08233)
 
-$B$G!">&IJ%Z!<%8$NFbMF$r%9%/%l%$%T%s%0$7$F!"(BOGP$B%a%?%G!<%?$rKd$a9~$s$@?7$7$$%Z!<%8$,I=<($5$l$^$9!#(B
+で、商品ページの内容をスクレイピングして、OGPメタデータを埋め込んだ新しいページが表示されます。
 
-$B$3$N?7$7$$(BURL$B$O!"(BTwiiter$B$d(BSNS$B$K>&IJ$r>R2p$9$k$H$-!"$h$j>\:Y$J@bL@$H>&IJ<L??$,I=<($5$l$k$N$G!">&IJ$N>R2p$,$7$d$9$/$J$j$^$9!#(B
+この新しいURLは、TwiiterやSNSに商品を紹介するとき、より詳細な説明と商品写真が表示されるので、商品の紹介がしやすくなります。
 
-## $B@_CV(B
+## 設置
 
-CentOS 6$B!&(BApache 2.2.27$B!&(BPHP 5.3.3$B$GF0:n3NG':Q$_(B
+CentOS 6・Apache 2.2.27・PHP 5.3.3で動作確認済み
 
-$B%I%a%$%s$NMQ0U$d(BApache$B$N(BVirtualHosts$B$N@_Dj$O>JN,(B
+ドメインの用意やApacheのVirtualHostsの設定は省略
 
-### $B%@%&%s%m!<%I(B
+### ダウンロード
 
 ```
 git clone https://github.com/CLCL/akizukidenshi-ogp-injector.git
@@ -32,9 +32,9 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 ```
 
-### AWS S3$B%"%C%W%m!<%IMQ%-!<$N@_Dj(B
+### AWS S3アップロード用キーの設定
 
-root$B%f!<%6$7$+%"%/%;%9$G$-$J$$(B ``/etc/sysconfig/httpd`` $B$K@_Dj$9$kNc(B
+rootユーザしかアクセスできない ``/etc/sysconfig/httpd`` に設定する例
 
 ```
 cat << EOS | sudo tee -a /etc/sysconfig/httpd
@@ -43,7 +43,7 @@ export AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 EOS
 ```
 
-$B0lHL%f!<%6$N(B ``.htaccess`` $B$K@_Dj$9$kNc(B**$B!JHs?d>)!K(B**
+一般ユーザの ``.htaccess`` に設定する例**（非推奨）**
 
 ```
 cat << EOS >> .htaccess
@@ -52,15 +52,15 @@ SetEnv AWS_SECRET_ACCESS_KEY xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 EOS
 ```
 
-### $B@_CV%I%a%$%s!&(BURL$B4XO"@_Dj(B
+### 設置ドメイン・URL関連設定
 
-``config.php`` $B$K@_Dj(B
+``config.php`` に設定
 
 ```
 cp -a config.php config.php~
 cat << EOS > config.php
 <?php
-// $BDj?t(B
+// 定数
 define('AKIZUKI_BASE_URL', 'http://akizukidenshi.com');
 define('S3_BUCKET',        'akizukidenshi-ogp-injector.dtpwiki.jp.tokyo');
 define('S3_REGION',        'ap-northeast-1');
