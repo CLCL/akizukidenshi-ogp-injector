@@ -1,0 +1,18 @@
+<?php return array(
+    'includes' => array('_aws'),
+    'services' => array(
+        'default_settings' => array(
+            'params' => array(
+                'credentials' => array(
+                    'key'    => 'xxxxxxxxxxxxxxxxxxxx',
+                    'secret' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+                ),
+            )
+        )
+    )
+);
+// 通常は Apacheの環境変数（CentOSでは/etc/sysconfig/httpd もしく
+// は /etc/httpd/conf/httpd.conf の SetEnvで設定）を利用します。
+// index.phpでaws-config.phpを利用する設定にした時に利用されます
+// mv aws-config.php.config aws-config.php をした後、
+// keyとsecretを書き換えてください。

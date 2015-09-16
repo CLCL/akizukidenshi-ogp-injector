@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{% block title %}秋月電子通商サイト OGPメタデータ インジェクタ{% endblock %}</title>
+{% block meta %}
+    <meta name="description" content="秋月電子通商ウェブサイトの個別商品ページに埋め込まれているといいなあと思う、OGPメタデータを抽出し、メタデータを埋め込んだページを生成します。OGPメタデータは、SNSやブログなどでURLを貼り付けたときに詳細データとして表示される用途などで利用されています。" />
+{% endblock meta %}
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+{% block header_styles %}{% endblock %}
+  </head>
+  <body>
+    <div id="contents">
+      <div id="main">
+{% block product_detail %}{% endblock %}
+        <article class="xfolkentry" id="inputform">
+          <h2>OGPメタデータ生成</h2>
+          <form method="get" name="form1"
+            action="{{app.request.basepath}}/"
+            onsubmit="location.href='{{app.request.basepath
+            }}/' + document.form1.url.value; return false;">
+            <label>URL
+              <input type="text" {% if url is defined %}value="{{url
+                }}" {% endif %}name="url" id="urlinput"
+                 placeholder="http://akizukidenshi.com/秋月電子通商の商品個別ページのURL" />
+            </label>
+            <input type="submit" value="OGPページ生成"
+            />
+          </form>
+          <p>秋月電子通商のインターネット販売ページ（<a
+            href="http://akizukidenshi.com/"
+            >http://akizukidenshi.com/</a>）の個別商品ページに<span
+            style="text-decoration: underline;"
+            >もし埋め込まれていたら便利なOGPメタデータ</span
+            >を、このサイトで代替生成しています。
+          </p>
+        </article>
+{% block ogpmetadata_preview %}{% endblock %}
+        <article class="xfolkentry" id="example">
+{% if url is defined %}
+{% else %}
+{% set url %}
+{{- random([
+  'http://akizukidenshi.com/catalog/g/gI-08878/',
+  'http://akizukidenshi.com/catalog/g/gK-06656/',
+  'http://akizukidenshi.com/catalog/g/gR-25471/',
+  'http://akizukidenshi.com/catalog/g/gM-07385/',
+  'http://akizukidenshi.com/catalog/g/gP-00090/',
+  'http://akizukidenshi.com/catalog/g/gM-08570/',
+  'http://akizukidenshi.com/catalog/g/gP-01306/',
+  
+  'http://akizukidenshi.com/catalog/g/gI-05665/',
+  'http://akizukidenshi.com/catalog/g/gM-03150/',
+  'http://akizukidenshi.com/catalog/g/gK-09053/',
+  'http://akizukidenshi.com/catalog/g/gK-06126/',
+  'http://akizukidenshi.com/catalog/g/gI-00181/',
+  'http://akizukidenshi.com/catalog/g/gM-08461/',
+  
+  'http://akizukidenshi.com/catalog/g/gM-09607/',
+  'http://akizukidenshi.com/catalog/g/gB-02118/',
+  'http://akizukidenshi.com/catalog/g/gM-09024/',
+  'http://akizukidenshi.com/catalog/g/gM-08233/',
+  'http://akizukidenshi.com/catalog/g/gM-06606/',
+  'http://akizukidenshi.com/catalog/g/gT-09379/',
+  'http://akizukidenshi.com/catalog/g/gM-07427/',
+  'http://akizukidenshi.com/catalog/g/gK-06875/',
+  
+]) -}}
+{% endset %}
+{% endif %}
+          <h2>OGPメタデータの利用例</h2>
+          <p>はてなブログで提供されている「はてなブログカード生成スニペット（<a
+            href="http://help.hatenablog.com/entry/blogcards"
+            >http://help.hatenablog.com/entry/blogcards</a
+            >）」を使い、当サイト利用前と利用後のはてなブログカード表示を例示します。
+          </p>
+          <div style="width: 100%;">
+            <div class="item">
+              <p><label for="textarea_before">OGPメタデータ付与前</label></p>
+              <textarea rows="3" lang="JA" tabindex="3" accesskey="b"
+                id="textarea_before" wrap="hard">[{{url}}:embed:cite]</textarea>
+              <iframe class="hatenablogcard" style="width:100%; height:155px;"
+                src="http://hatenablog.com/embed?url={{url}}"
+                width="300" height="150" frameborder="0" scrolling="no"></iframe>
+            </div>
+            <div class="item">
+              <p><label for="textarea_after">OGPメタデータ付与後</label></p>
+              <textarea rows="3" lang="JA" tabindex="4" accesskey="a"
+                id="textarea_after" wrap="hard"
+              >{{app.request.getScheme()}}://{{app.request.getHttpHost()
+                }}{{app.request.basepath}}/{{url}}:embed:cite]</textarea>
+              <iframe class="hatenablogcard" style="width:100%; height:155px;"
+                src="http://hatenablog.com/embed?url={{app.request.getScheme()
+                }}://{{app.request.getHttpHost() }}{{app.request.basepath}}/{{url}}"
+                width="300" height="150" frameborder="0" scrolling="no"></iframe>
+            </div>
+          <br style="clear: both;" />
+          </div>
+        </article>
+      </div>
+      <footer>
+        <p>このページは、秋月電機通商のウェブサイトの個別商品ページをサイトスクレイピングにより情報を整理し、未設定のOGPメタデータを埋め込んだページを生成します。</p>
+      </footer>
+    </div>
+{% block footer_script %}{% endblock %}
+  </body>
+</html>

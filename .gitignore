@@ -1,0 +1,13 @@
+*~
+*.swp
+aws-config.php
+composer.phar
+composer.lock
+cache_cache_lite/*
+cache_http_cache/*
+cache_twig/*
+favicon.ico
+google*.html
+test*
+vendor/
+!.gitkeep

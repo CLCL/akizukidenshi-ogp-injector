@@ -1,0 +1,44 @@
+{% extends 'page.twig' %}
+{% set meta %}{% include 'meta.inc.twig' %}{% endset %}
+{% block title %}{{title}}{% endblock %}
+{% block meta %}
+{{ meta|raw -}}
+    <link rel="canonical" href="{{url}}" />
+{% endblock meta %}
+{% block header_styles %}
+    <link rel="stylesheet" type="text/css"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/solarized_dark.min.css" />
+{% endblock %}
+{% block product_detail %}
+      <article class="xfolkentry">
+        <h1>
+          <a href="{{url}}" title="og:title">
+            {{title}}
+          </a>
+        </h1>
+        <p id="description" title="og:description">
+          <a href="{{url}}">
+            <img src="{{image_abs}}" alt="{{title}}" title="og:image">
+            {{desc}}
+          </a>
+        </p>
+        <p id="externallink">
+          <a href="{{url}}">秋月電子通商 商品ページへ</a>
+        </p>
+      </article>
+{% endblock %}
+{% block ogpmetadata_preview %}
+      <article class="xfolkentry">
+        <h2>OGPメタデータ表示</h2>
+        <p>OGPメタデータに対応したはてなブログの編集画面でこのサイトを通したURL（{{
+        app.request.uri}}）を貼り付けますと、
+          商品画像と詳細説明付のブログカードが生成されます。</p>
+        <pre><code class="html">
+        {{- meta | e -}}
+        </code></pre>
+      </article>
+{% endblock %}
+{% block footer_script %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script> 
+{% endblock %}

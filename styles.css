@@ -1,0 +1,124 @@
+@charset "UTF-8";
+html {
+  margin: 0px auto;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  max-width: 1440px;
+  font-family: 'Helvetica', 'Arial', 'メイリオ', 'Meiryo', 'MS PGothic', sans-serif;
+}
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+div#contents {
+  position: relative;   /* フッター部の配置用に定義 */
+  min-height: 100%;   /* 縦の表示領域を100% */
+}
+h1 {
+  margin-top: 0px;
+  line-height: 1.2;
+  font-size: 18px;
+}
+h1 a {
+  color: black;
+  text-decoration: none;
+}
+h1 a:hover {
+  text-decoration: underline;
+}
+article {
+  margin-bottom: 50px;
+}
+h2 {
+  font-size: 15px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+#main {
+  padding: 20px 40px;
+}
+@media screen and (max-width: 760px) {
+  #main {
+    padding: 10px 20px;
+  }
+}
+#main p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+#main p#description a {
+  color: black;
+  text-decoration: none;
+}
+#main p a img {
+  float: right;
+  padding-left: 20px;
+  transition: opacity 0.2s ease;
+  max-width: 50%;
+}
+#main p a img:hover {
+  opacity: 0.4;
+}
+#main pre {
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+#inputform form {
+  margin: 60px auto;
+  text-align: center;
+}
+#urlinput {
+  width: 50%;
+  padding-left: 8px;
+}
+label {
+  color: #555;
+}
+#externallink {
+  text-align: center;
+  margin: 50px auto;
+  clear: both;
+}
+#externallink a {
+  color: #339;
+  font-size: 24px;
+  text-decoration: underline;
+}
+#externallink a:hover {
+  color: #888;
+}
+iframe {
+  margin: 10px 0px;
+}
+textarea {
+  width: 99%;
+  word-wrap: break-word;
+}
+#example label {
+  font-weight: bold;
+}
+#example .item {
+  width: 350px;
+  float: left;
+  margin-right: 25px;
+}
+footer {
+  background-color: #ddd;
+  height: 20px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%; 
+}
+footer p {
+  line-height: 20px;
+  vertical-align: center;
+  font-size: 8px;
+  color: #666;
+  margin: 0px 0px 0px 10px;
+}

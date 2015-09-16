@@ -1,0 +1,10 @@
+{
+    "require": {
+        "twig/twig": "~1.2",
+        "fabpot/goutte": "~1.0",
+        "pear/Cache_Lite": "~1.7",
+        "aws/aws-sdk-php": "~2.8",
+        "silex/silex": "~1.2",
+        "symfony/twig-bridge": "~2.6"
+    }
+}

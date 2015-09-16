@@ -1,0 +1,56 @@
+# silexで作ったindex.phpにアクセスを集める
+
+AcceptPathInfo  On
+DirectoryIndex  index.php
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# Apacheによる静的ファイル配信時のヘッダ操作
+
+FileEtag        none
+<FilesMatch ".(css|js|html|gz)$">
+  # 7日
+  Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+
+<FilesMatch ".(gif|jpe?g|png|ico|otf|ttf|eot|woff)$">
+  # 30日
+  Header set Cache-Control "max-age=2592000, public"
+</FilesMatch>
+
+# Access Restriction
+
+# FilesMatch
+
+<FilesMatch "^\.ht.*">
+  Deny from All
+</FilesMatch>
+
+<FilesMatch "\.(php|twig|sample|swp)$">
+  Deny from All
+</FilesMatch>
+
+<FilesMatch "~$">
+  Deny from All
+</FilesMatch>
+
+<FilesMatch "^cache_.*">
+  Deny from All
+</FilesMatch>
+
+<FilesMatch "^composer\..*">
+  Deny from All
+</FilesMatch>
+
+# Files
+
+<Files "vendor">
+  Deny from All
+</Files>
+
+<Files "index.php">
+  Allow from All
+</Files>
