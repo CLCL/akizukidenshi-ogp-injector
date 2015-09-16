@@ -26,7 +26,7 @@ CentOS 6・Apache 2.2.27・PHP 5.3.3で動作確認済み
 ### ダウンロード
 
 ```
-git clone
+git clone https://github.com/CLCL/akizukidenshi-ogp-injector.git
 cd akizukidenshi-ogp-injector/
 curl -sS https://getcomposer.org/installer | php
 php composer.phar install
