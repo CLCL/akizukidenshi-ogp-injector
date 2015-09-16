@@ -1,4 +1,4 @@
-# silex$B$G:n$C$?(Bindex.php$B$K%"%/%;%9$r=8$a$k(B
+# silexで作ったindex.phpにアクセスを集める
 
 AcceptPathInfo  On
 DirectoryIndex  index.php
@@ -8,16 +8,16 @@ DirectoryIndex  index.php
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# Apache$B$K$h$k@EE*%U%!%$%kG[?.;~$N%X%C%@A`:n(B
+# Apacheによる静的ファイル配信時のヘッダ操作
 
 FileEtag        none
 <FilesMatch ".(css|js|html|gz)$">
-  # 7$BF|(B
+  # 7日
   Header set Cache-Control "max-age=604800, public"
 </FilesMatch>
 
 <FilesMatch ".(gif|jpe?g|png|ico|otf|ttf|eot|woff)$">
-  # 30$BF|(B
+  # 30日
   Header set Cache-Control "max-age=2592000, public"
 </FilesMatch>
 

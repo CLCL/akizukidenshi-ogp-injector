@@ -11,8 +11,8 @@
         )
     )
 );
-// $BDL>o$O(B Apache$B$N4D6-JQ?t!J(BCentOS$B$G$O(B/etc/sysconfig/httpd $B$b$7$/(B
-// $B$O(B /etc/httpd/conf/httpd.conf $B$N(B SetEnv$B$G@_Dj!K$rMxMQ$7$^$9!#(B
-// index.php$B$G(Baws-config.php$B$rMxMQ$9$k@_Dj$K$7$?;~$KMxMQ$5$l$^$9(B
-// mv aws-config.php.config aws-config.php $B$r$7$?8e!"(B
-// key$B$H(Bsecret$B$r=q$-49$($F$/$@$5$$!#(B
+// 通常は Apacheの環境変数（CentOSでは/etc/sysconfig/httpd もしく
+// は /etc/httpd/conf/httpd.conf の SetEnvで設定）を利用します。
+// index.phpでaws-config.phpを利用する設定にした時に利用されます
+// mv aws-config.php.config aws-config.php をした後、
+// keyとsecretを書き換えてください。
