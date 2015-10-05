@@ -19,7 +19,7 @@ akizukidenshi-ogp-injector
 
 ## 設置
 
-CentOS 6・Apache 2.2.27・PHP 5.3.3で動作確認済み
+CentOS 6・Apache 2.2.27・PHP 5.3.3/5.6.14で動作確認済み
 
 ドメインの用意やApacheのVirtualHostsの設定は省略
 
