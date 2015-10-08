@@ -102,8 +102,7 @@ function scraper($url) {
   $crawler = '';
   $is_cached = false;
   if ($cache_data = $cache->get($url)) {
-    $crawler = $client->request('GET', '');
-    $crawler->clear();
+    $crawler = $client->getClient();
     $crawler->addHtmlContent($cache_data, 'cp932');
     $is_cached = true;
   }
