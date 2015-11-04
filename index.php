@@ -114,7 +114,7 @@ function scraper($url) {
     }
   }
   
-  $title = mb_convert_kana(trim($crawler->filter('title')->text()), 'rns');
+  $title = regulate_text($crawler->filter('title')->text());
   $image = trim($crawler->filter('td.syosai')->filter('#imglink img')->attr('src'));
   $image_abs = '';
   if ( $is_cached ) {
@@ -134,7 +134,7 @@ function scraper($url) {
   $date = DateTime::createFromFormat('Y/m/d H:i:s', "$date 09:00:00", new DateTimeZone('GMT'));
   $desc_node = $crawler->filter('#maincontents table tr td table tr '
     . 'td:nth-child(2) table tr:nth-child(3) td');
-  $desc = mb_convert_kana( trim($desc_node->text()), 'rns');
+  $desc = regulate_text($desc_node->text());
   $desc = preg_replace('/\n|\r|\r\n/', '', $desc);
   if ($desc == '') {
     // IFRAMEの場合
@@ -215,4 +215,11 @@ function s3_push($url) {
   //https://s3-ap-northeast-1.amazonaws.com/
   //akizukidenshi-ogp-injector.dtpwiki.jp.tokyo/img/goods/C/M-09024.jpg
   return $result['ObjectURL'];
+}
+
+// タイトルや本文の書式をレギュレーションする
+function regulate_text($str) {
+  $str = mb_convert_kana(trim($str), 'rns');
+  $str = preg_replace('/([\w])．([\w])/', '$1.$2', $str);
+  return $str;
 }
