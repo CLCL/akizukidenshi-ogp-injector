@@ -81,17 +81,17 @@
               <textarea rows="3" lang="JA" tabindex="3" accesskey="b"
                 id="textarea_before" wrap="hard">[{{url}}:embed:cite]</textarea>
               <iframe class="hatenablogcard" style="width:100%; height:155px;"
-                src="http://hatenablog.com/embed?url={{url}}"
+                src="//hatenablog-parts.com/embed?url={{url}}"
                 width="300" height="150" frameborder="0" scrolling="no"></iframe>
             </div>
             <div class="item">
               <p><label for="textarea_after">OGPメタデータ付与後</label></p>
               <textarea rows="3" lang="JA" tabindex="4" accesskey="a"
                 id="textarea_after" wrap="hard"
-              >{{app.request.getScheme()}}://{{app.request.getHttpHost()
+              >[{{app.request.getScheme()}}://{{app.request.getHttpHost()
                 }}{{app.request.basepath}}/{{url}}:embed:cite]</textarea>
               <iframe class="hatenablogcard" style="width:100%; height:155px;"
-                src="http://hatenablog.com/embed?url={{app.request.getScheme()
+                src="//hatenablog-parts.com/embed?url={{app.request.getScheme()
                 }}://{{app.request.getHttpHost() }}{{app.request.basepath}}/{{url}}"
                 width="300" height="150" frameborder="0" scrolling="no"></iframe>
             </div>
