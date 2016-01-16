@@ -7,7 +7,7 @@
 {% block meta %}
     <meta name="description" content="秋月電子通商ウェブサイトの個別商品ページに埋め込まれているといいなあと思う、OGPメタデータを抽出し、メタデータを埋め込んだページを生成します。OGPメタデータは、SNSやブログなどでURLを貼り付けたときに詳細データとして表示される用途などで利用されています。" />
 {% endblock meta %}
-    <link rel="stylesheet" type="text/css" href="/styles.css" />
+    <link rel="stylesheet" type="text/css" href="{{app.request.baseUrl}}/styles.css" />
 {% block header_styles %}{% endblock %}
   </head>
   <body>
