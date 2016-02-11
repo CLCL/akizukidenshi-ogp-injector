@@ -47,12 +47,20 @@ if (!$app['debug']) {
   });
 }
 
-// Rooter
+// Router
 $app->get('/', function() use ($app) {
   $res = array();
   $expires = 5;
   $date_last_modified = gmdate("D, d M Y H:i:s T", time());
   
+  // トップページに表示する例示アイテムを秋月電子Webサイトの最新アイテムにする
+  // $res['url']に入れない場合は、page.twig内で用意されたアイテムが$urlに
+  // ランダムで代入される（古めのアイテムが表示される）。
+  $items = scraper_new_items();
+  array_splice($items, 6);
+  $res['url'] = $items[array_rand($items)];
+  //$res['url'] = 'http://akizukidenshi.com/catalog/g/gM-07385/';
+
   //$html = $twig->render('page.twig', $res);
   $html = $app['twig']->render('page.twig', $res);
   $response = new Response( $html, 200, array(
@@ -62,6 +70,7 @@ $app->get('/', function() use ($app) {
   $response->setTtl($expires);
   return $response;
 });
+
 $app->get('/http://{url1}/{url2}/{url3}/{url4}/', function($url1, $url2, $url3, $url4) use($app) { 
   $url = "http://$url1/$url2/$url3/$url4/";
   // $urlの異状チェック
@@ -94,7 +103,48 @@ $app['http_cache']->run();
 
 exit(0);
 
-// スクレイピング
+// 新アイテムスクレイピング
+function scraper_new_items() {
+  $url = AKIZUKI_BASE_URL . '/catalog/default.aspx';
+  //echo "URL: $url\n";
+  global $client;
+  global $cache;
+  $crawler = '';
+  $is_cached = false;
+  if ($cache_data = $cache->get($url)) {
+    //$crawler = $client->getClient();
+    //$crawler = $client->request('GET', '');
+    //$crawler->clear();
+    //$crawler->addHtmlContent($cache_data, 'cp932');
+    $crawler = $client->request(
+                 'HEAD', null, array(), array(), array(), 
+                 mb_convert_encoding($cache_data, 'CP932', 'UTF-8'),
+                 false
+    );
+    $crawler->clear();
+    $crawler->addHtmlContent($cache_data, 'cp932');
+    $is_cached = true;
+  }
+  else {
+    $crawler = $client->request('GET', $url);
+    $status = $client->getResponse()->getStatus();
+    if (($status != 200) && ($status != 304 )) {
+      return array(status => $status);
+    }
+  }
+  
+  $res = $crawler->filter('.goods_name_')->each(function($item)  {
+    return AKIZUKI_BASE_URL.trim($item->attr('href'));
+  });
+  
+  if (!$is_cached) {
+    $cache->save($client->getResponse()->getContent(), $url);
+  }
+
+  return $res;
+}
+
+// アイテム個別ページスクレイピング
 function scraper($url) {
   //echo "URL: $url\n";
   global $client;
